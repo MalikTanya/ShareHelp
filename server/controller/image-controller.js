@@ -7,7 +7,9 @@ export const uploadImage = async (request, response) => {
   };
   try {
     const file = await File.create(fileObj);
-    response.status(200).json({ path: `https://localhost:8000/${file._id}` });
+    response
+      .status(200)
+      .json({ path: `http://localhost:8000/file/${file._id}` });
   } catch (error) {
     console.error(error.message);
     response.status(500).json({ error: error.message });
@@ -24,6 +26,6 @@ export const downloadImage = async (request, response) => {
     response.download(file.path, file.name);
   } catch (error) {
     console.log(error.message);
-    return response.status(200).json({ error: error.message });
+    return response.status(500).json({ error: error.message });
   }
 };
